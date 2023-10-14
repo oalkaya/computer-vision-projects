@@ -9,8 +9,8 @@ from functions.vis_utils import plot_image_with_keypoints, plot_image_pair_with_
 
 # constants
 HARRIS_SIGMA = 1.0
-HARRIS_K = 0.05
-HARRIS_THRESH = 1e-5
+HARRIS_K = 0.1
+HARRIS_THRESH = 1e-3
 MATCHING_RATIO_TEST_THRESHOLD = 0.5
 
 def main_detection():
