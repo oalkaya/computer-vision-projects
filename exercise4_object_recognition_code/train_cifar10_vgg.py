@@ -10,10 +10,10 @@ import torch.nn.functional as F
 
 ####### training settings #########
 parser = argparse.ArgumentParser()
-parser.add_argument("--batch_size", default=128, type=int)
+parser.add_argument("--batch_size", default=512, type=int)
 parser.add_argument("--log_step", default=100, type=int, help='how many steps to log once')
 parser.add_argument("--val_step", default=100, type=int)
-parser.add_argument("--num_epoch", default=50, type=int, help='maximum num of training epochs')
+parser.add_argument("--num_epoch", default=100, type=int, help='maximum num of training epochs')
 
 
 parser.add_argument("--fc_layer", default=512, type=int, help='feature number the first linear layer in VGG')
