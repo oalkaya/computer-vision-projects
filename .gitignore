@@ -2,4 +2,4 @@ lab-slides
 *.zip
 *.pdf
 *.pptx
-exercise4-dl4cv/code/data/
+**/data
