@@ -295,7 +295,7 @@ def save_images_with_overlays(nameDir_test, inference_dir, vBoWTest, vBoWPos, vB
         cv2.putText(img_with_overlay, label, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, text_color, 2)
 
         # Create a new figure for the visualization
-        fig, ax = plt.subplots(1, 4, figsize=(25, 5))
+        fig, ax = plt.subplots(1, 4, figsize=(20, 5))
 
         # Display the original image with grid points
         ax[0].imshow(cv2.cvtColor(img_with_overlay, cv2.COLOR_BGR2RGB))
