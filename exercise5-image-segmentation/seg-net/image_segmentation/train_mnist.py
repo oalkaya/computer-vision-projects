@@ -39,7 +39,7 @@ def parse_args():
     # training
     parser.add_argument('--out_dir',
                         help='directory to save outputs',
-                        default='out',
+                        default='exercise5-image-segmentation/seg-net/out',
                         type=str)
     parser.add_argument('--frequent',
                         help='frequency of logging',
