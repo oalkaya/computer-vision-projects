@@ -43,7 +43,7 @@ def meanshift(X, bandwidth, num_labels):
 
 # Hyperparameters
 scale = 0.5         # downscale the image to run faster
-bandwidth = 3       # bandwitdth for gaussians
+bandwidth = 7       # bandwitdth for gaussians
 
 # Load image and convert it to CIELAB space
 image = rescale(io.imread('exercise5-image-segmentation/mean-shift/eth.jpg'), scale, channel_axis=-1)
