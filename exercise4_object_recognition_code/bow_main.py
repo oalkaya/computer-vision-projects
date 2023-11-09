@@ -5,7 +5,7 @@ import os
 from sklearn.cluster import KMeans
 from tqdm import tqdm
 
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 
 
 def findnn(D1, D2):
@@ -238,91 +238,91 @@ def bow_recognition_nearest(histogram,vBoWPos,vBoWNeg):
 
 # HELPER FUNCTION FOR SANITY CHECKING MY OWN RESULTS
 
-def save_images_with_overlays(nameDir_test, inference_dir, vBoWTest, vBoWPos, vBoWNeg):
+# def save_images_with_overlays(nameDir_test, inference_dir, vBoWTest, vBoWPos, vBoWNeg):
 
-    nPointsX = 10
-    nPointsY = 10
-    border = 8
+#     nPointsX = 10
+#     nPointsY = 10
+#     border = 8
 
-    os.makedirs(inference_dir, exist_ok=True)
+#     os.makedirs(inference_dir, exist_ok=True)
 
-    # Get image paths for test samples
-    vImgNamesTest = sorted(glob.glob(os.path.join(nameDir_test, '*.png')))
+#     # Get image paths for test samples
+#     vImgNamesTest = sorted(glob.glob(os.path.join(nameDir_test, '*.png')))
 
-    for i, image_path in enumerate(vImgNamesTest):
-        img = cv2.imread(image_path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert to grayscale [h, w]
-        img_with_overlay = img.copy()
+#     for i, image_path in enumerate(vImgNamesTest):
+#         img = cv2.imread(image_path)
+#         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert to grayscale [h, w]
+#         img_with_overlay = img.copy()
 
-        # Get grid points using the grid_points function
-        vPoints = grid_points(img, nPointsX, nPointsY, border)
+#         # Get grid points using the grid_points function
+#         vPoints = grid_points(img, nPointsX, nPointsY, border)
 
-        # Back to BGR
-        img_with_overlay = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+#         # Back to BGR
+#         img_with_overlay = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
-        # Overlay grid points
-        for point in vPoints:
-            x, y = point
-            cv2.circle(img_with_overlay, (int(x), int(y)), 1, (0, 0, 127), -1)
+#         # Overlay grid points
+#         for point in vPoints:
+#             x, y = point
+#             cv2.circle(img_with_overlay, (int(x), int(y)), 1, (0, 0, 127), -1)
 
-        # Calculate the width of each histogram bar
-        bar_width = 1
+#         # Calculate the width of each histogram bar
+#         bar_width = 1
 
-        # Determine the x-coordinates for each bar in the histogram visualization
-        x_coords = np.arange(len(vBoWTest[i]))
+#         # Determine the x-coordinates for each bar in the histogram visualization
+#         x_coords = np.arange(len(vBoWTest[i]))
 
-        # Calculate distances between the test histogram and histograms of positive and negative training examples
-        DistPos = np.linalg.norm(vBoWTest[i] - vBoWPos, axis=1)
-        DistNeg = np.linalg.norm(vBoWTest[i] - vBoWNeg, axis=1)
+#         # Calculate distances between the test histogram and histograms of positive and negative training examples
+#         DistPos = np.linalg.norm(vBoWTest[i] - vBoWPos, axis=1)
+#         DistNeg = np.linalg.norm(vBoWTest[i] - vBoWNeg, axis=1)
 
-        # Find the nearest neighbor in the positive and negative sets
-        nearest_pos_index = np.argmin(DistPos)
-        nearest_neg_index = np.argmin(DistNeg)
+#         # Find the nearest neighbor in the positive and negative sets
+#         nearest_pos_index = np.argmin(DistPos)
+#         nearest_neg_index = np.argmin(DistNeg)
 
-        # Find the nearest neighbor distances in the positive and negative sets
-        min_dist_pos = np.min(DistPos)
-        min_dist_neg = np.min(DistNeg)
+#         # Find the nearest neighbor distances in the positive and negative sets
+#         min_dist_pos = np.min(DistPos)
+#         min_dist_neg = np.min(DistNeg)
 
-        # Determine if it's positive or negative based on which distance is smaller
-        if min_dist_pos < min_dist_neg:
-            label = 'Positive'
-            text_color = (0, 255, 0)
-        else:
-            label = 'Negative'
-            text_color = (0, 0, 255)
+#         # Determine if it's positive or negative based on which distance is smaller
+#         if min_dist_pos < min_dist_neg:
+#             label = 'Positive'
+#             text_color = (0, 255, 0)
+#         else:
+#             label = 'Negative'
+#             text_color = (0, 0, 255)
 
-        # Draw text on the image
-        cv2.putText(img_with_overlay, label, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, text_color, 2)
+#         # Draw text on the image
+#         cv2.putText(img_with_overlay, label, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, text_color, 2)
 
-        # Create a new figure for the visualization
-        fig, ax = plt.subplots(1, 4, figsize=(20, 5))
+#         # Create a new figure for the visualization
+#         fig, ax = plt.subplots(1, 4, figsize=(20, 5))
 
-        # Display the original image with grid points
-        ax[0].imshow(cv2.cvtColor(img_with_overlay, cv2.COLOR_BGR2RGB))
-        ax[0].set_title('Original Image')
+#         # Display the original image with grid points
+#         ax[0].imshow(cv2.cvtColor(img_with_overlay, cv2.COLOR_BGR2RGB))
+#         ax[0].set_title('Original Image')
 
-        # Create a bar graph for the BoW histogram
-        ax[1].bar(x_coords, vBoWTest[i], bar_width, color='black')
-        ax[1].set_xlabel('Visual Word')
-        ax[1].set_ylabel('Frequency')
-        ax[1].set_title('BoW Histogram')
+#         # Create a bar graph for the BoW histogram
+#         ax[1].bar(x_coords, vBoWTest[i], bar_width, color='black')
+#         ax[1].set_xlabel('Visual Word')
+#         ax[1].set_ylabel('Frequency')
+#         ax[1].set_title('BoW Histogram')
 
-        # Create a bar graph for the nearest positive training histogram
-        ax[2].bar(x_coords, vBoWPos[nearest_pos_index], bar_width, color='g')
-        ax[2].set_xlabel('Visual Word')
-        ax[2].set_ylabel('Frequency')
-        ax[2].set_title('Nearest Pos Train Histogram')
+#         # Create a bar graph for the nearest positive training histogram
+#         ax[2].bar(x_coords, vBoWPos[nearest_pos_index], bar_width, color='g')
+#         ax[2].set_xlabel('Visual Word')
+#         ax[2].set_ylabel('Frequency')
+#         ax[2].set_title('Nearest Pos Train Histogram')
 
-        # Create a bar graph for the nearest negative training histogram
-        ax[3].bar(x_coords, vBoWNeg[nearest_neg_index], bar_width, color='r')
-        ax[3].set_xlabel('Visual Word')
-        ax[3].set_ylabel('Frequency')
-        ax[3].set_title('Nearest Neg Train Histogram')
+#         # Create a bar graph for the nearest negative training histogram
+#         ax[3].bar(x_coords, vBoWNeg[nearest_neg_index], bar_width, color='r')
+#         ax[3].set_xlabel('Visual Word')
+#         ax[3].set_ylabel('Frequency')
+#         ax[3].set_title('Nearest Neg Train Histogram')
 
-        # Save the image with the histograms and nearest neighbor histograms visualizations
-        output_image_path = os.path.join(inference_dir, os.path.basename(image_path))
-        plt.savefig(output_image_path)
-        plt.close()  # Close the figure to avoid multiple overlapping visualizations
+#         # Save the image with the histograms and nearest neighbor histograms visualizations
+#         output_image_path = os.path.join(inference_dir, os.path.basename(image_path))
+#         plt.savefig(output_image_path)
+#         plt.close()  # Close the figure to avoid multiple overlapping visualizations
 
 
 if __name__ == '__main__':
@@ -365,8 +365,8 @@ if __name__ == '__main__':
     acc_neg = 1 - result_neg / vBoWNeg_test.shape[0]
     print('test neg sample accuracy:', acc_neg)
 
-    # Save test samples with grid points
-    print('running inference for overlays (pos) ...')
-    save_images_with_overlays(nameDirPos_test, 'data/inference/pos', vBoWPos_test, vBoWPos, vBoWNeg)
-    print('running inference for overlays (neg) ...')
-    save_images_with_overlays(nameDirNeg_test, 'data/inference/neg', vBoWNeg_test, vBoWPos, vBoWNeg)
+    # # Save test samples with grid points
+    # print('running inference for overlays (pos) ...')
+    # save_images_with_overlays(nameDirPos_test, 'data/inference/pos', vBoWPos_test, vBoWPos, vBoWNeg)
+    # print('running inference for overlays (neg) ...')
+    # save_images_with_overlays(nameDirNeg_test, 'data/inference/neg', vBoWNeg_test, vBoWPos, vBoWNeg)
