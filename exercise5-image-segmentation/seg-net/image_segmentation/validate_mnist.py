@@ -11,6 +11,10 @@ import torch.optim as optim
 import numpy as np
 import random
 
+# Add to PATH
+import sys
+sys.path.append('exercise5-image-segmentation\seg-net\image_segmentation\train_mnist.py')
+
 from lib.core.function import train
 from lib.core.function import validate
 from lib.core.loss import CrossEntropy2D
