@@ -54,7 +54,7 @@ def parse_args():
                         help='whether to use GPU or not')
     parser.add_argument('--num_workers',
                         help='num of dataloader workers',
-                        default=4,
+                        default=0,
                         type=int)
 
     args = parser.parse_args()
