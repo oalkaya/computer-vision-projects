@@ -1,0 +1,1 @@
+2023-11-09 20:06:55,959 Namespace(out_dir='exercise5-image-segmentation/seg-net/out', frequent=10, eval_interval=1, gpu=False, num_workers=4)
