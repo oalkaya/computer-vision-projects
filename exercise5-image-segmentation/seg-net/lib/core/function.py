@@ -38,6 +38,10 @@ def train(train_loader, model, criterion, optimizer, epoch,
 
     end = time.time()
     for i, (input, target) in enumerate(train_loader):
+        if args.gpu:
+            input = input.cuda()  # Move input to GPU
+            target = target.cuda()  # Move target to GPU
+
         if len(input.shape) > 4:
             # Note that in the MNIST dataloader, we return 3-dimentional tensor before we make the batch,
             # thus the batch of images returned from the dataloader would be 1 x B x 3 x H x W. Same applies
@@ -114,6 +118,9 @@ def validate(val_loader, val_dataset, model, criterion,
     with torch.no_grad():
         end = time.time()
         for i, (input, target) in enumerate(val_loader):
+            if args.gpu:
+                input = input.cuda()  # Move input to GPU
+                target = target.cuda()  # Move target to GPU
             if len(input.shape) > 4:
                 # Note that in the MNIST dataloader, we return 3-dimentional tensor before we make the batch,
                 # thus the batch of images returned from the dataloader would be 1 x B x 3 x H x W. Same applies

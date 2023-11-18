@@ -1,0 +1,2 @@
+2023-11-18 12:28:10,715 Namespace(out_dir='out', frequent=10, eval_interval=1, gpu=False, num_workers=0)
+2023-11-18 12:28:48,824 Namespace(out_dir='out', frequent=10, eval_interval=1, gpu=False, num_workers=0)

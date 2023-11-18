@@ -39,7 +39,7 @@ def parse_args():
     # training
     parser.add_argument('--out_dir',
                         help='directory to save outputs',
-                        default='exercise5-image-segmentation/seg-net/out',
+                        default='out',
                         type=str)
     parser.add_argument('--frequent',
                         help='frequency of logging',
@@ -113,7 +113,7 @@ def main():
 
     best_perf = 0.0 # best performance so far (mean IoU)
     best_model = False
-    train_epochs = 20   # 20 epochs should be enough, if your implementation is right
+    train_epochs = 25   # 20 epochs should be enough, if your implementation is right
     for epoch in range(train_epochs):
         # train for one epoch
         train(train_loader, model, criterion, optimizer, epoch,
@@ -150,7 +150,10 @@ def main():
     logger.info('saving final model state to {}'.format(
         final_model_state_file))
     torch.save(model.state_dict(), final_model_state_file)
-    writer_dict['logger'].close()
+
+
+    if tb_logger:
+        writer_dict['logger'].close()
 
 
 if __name__ == '__main__':

@@ -1,3 +1,0 @@
-2023-11-09 20:31:59,386 Namespace(out_dir='exercise5-image-segmentation/seg-net/out', frequent=10, eval_interval=1, gpu=False, num_workers=0)
-2023-11-09 20:31:59,618 => load 200 samples
-2023-11-09 20:31:59,619 => load 200 samples
