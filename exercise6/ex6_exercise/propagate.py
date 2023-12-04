@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 
 def propagate(particles, frame_height, frame_width, params):
@@ -37,7 +36,7 @@ def propagate(particles, frame_height, frame_width, params):
                      params["sigma_velocity"]**2, params["sigma_velocity"]**2])
 
     # Propagate each particle
-    for i in range(particles.shape[0]): # Iterate for number of particles
+    for i in range(particles.shape[0]): # num_particles = particles.shape[0]
         noise = np.random.multivariate_normal(np.zeros(Q.shape[0]), Q) # Directly use Q to generate noise
         particles[i] = A @ particles[i] + noise # Shorthand for np.dot
 

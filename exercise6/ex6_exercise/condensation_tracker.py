@@ -217,7 +217,7 @@ def condensation_tracker(video_name, params):
 
 
 if __name__ == "__main__":
-    video_name = 'video3.avi'
+    video_name = 'video1.avi'
     params = {
         "draw_plots": 1,
         "hist_bin": 16,
