@@ -29,5 +29,9 @@ def resample(particles, weights):
         
     # Construct the new set of particles
     new_particles = particles[indices]
+
+    # Return associated weights with re-normalization
+    new_weights = weights[indices]
+    new_weights /= np.sum(new_weights)
     
-    return new_particles
+    return new_particles, new_weights

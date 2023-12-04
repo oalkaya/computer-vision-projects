@@ -63,7 +63,7 @@ def condensation_tracker(video_name, params):
         last_frame = 60
 
     # Change this to where your data is
-    data_dir = '.exercise6/ex6_data/'
+    data_dir = 'exercise6\ex6_data'
     video_path = os.path.join(data_dir, video_name)
 
     vidcap = cv2.VideoCapture(video_path)

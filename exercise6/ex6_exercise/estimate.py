@@ -11,5 +11,7 @@ def estimate(particles, weights):
     Returns:
     - estimated_state: The estimated state as the weighted average of the particles.
     """
+    # Ensure that weights are a 1D array
+    weights = np.ravel(weights)
     estimated_state = np.average(particles, axis=0, weights=weights)
     return estimated_state
