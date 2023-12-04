@@ -57,7 +57,7 @@ def condensation_tracker(video_name, params):
         last_frame = 42
     elif video_name == "video2.avi":
         first_frame = 3
-        last_frame = 40
+        last_frame = 38
     elif video_name == "video3.avi":
         first_frame = 1
         last_frame = 60
@@ -211,7 +211,7 @@ def condensation_tracker(video_name, params):
             to_remove.append(new_plot)
 
             # Pause
-            plt.pause(1)
+            plt.pause(0.2)
 
             # Wait for keyboard input
             # plt.pause(0.01)
@@ -226,16 +226,16 @@ def condensation_tracker(video_name, params):
 
 
 if __name__ == "__main__":
-    video_name = 'video3.avi'
+    video_name = 'video2.avi'
     params = {
         "draw_plots": 1,
         "hist_bin": 16,
         "alpha": 0,
         "sigma_observe": 0.1,
-        "model": 0,
+        "model": 1,
         "num_particles": 30,
-        "sigma_position": 15,
+        "sigma_position": 5,
         "sigma_velocity": 1,
-        "initial_velocity": (1, 10)
+        "initial_velocity": (10, 0)
     }
     condensation_tracker(video_name, params)
