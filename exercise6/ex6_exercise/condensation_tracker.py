@@ -213,6 +213,10 @@ def condensation_tracker(video_name, params):
             # Pause
             plt.pause(1)
 
+            # Wait for keyboard input
+            # plt.pause(0.01)
+            # input("Press Enter for next frame...")
+
             # Remove previous element from plot
             for e in to_remove:
                 e.remove()
