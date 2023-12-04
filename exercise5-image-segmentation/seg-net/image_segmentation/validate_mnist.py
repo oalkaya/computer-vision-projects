@@ -29,7 +29,7 @@ def parse_args():
     # training
     parser.add_argument('--out_dir',
                         help='directory to save outputs',
-                        default='exercise5-image-segmentation/seg-net/out',
+                        default='out',
                         type=str)
     parser.add_argument('--frequent',
                         help='frequency of logging',
@@ -96,7 +96,8 @@ def main():
     perf_indicator = validate(val_loader, val_dataset, model,
                               criterion, args.out_dir, writer_dict, args)
 
-    writer_dict['logger'].close()
+    if tb_logger:
+        writer_dict['logger'].close()
 
 
 if __name__ == '__main__':
