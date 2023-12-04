@@ -206,8 +206,13 @@ def condensation_tracker(video_name, params):
         # =====================================
 
         if params["draw_plots"] and t != last_frame:
-            
-            plt.pause(0.2)
+            # Plot a posteriori particles
+            new_plot = ax.scatter(particles[:, 0], particles[:, 1], color='green', s=10)
+            to_remove.append(new_plot)
+
+            # Pause
+            plt.pause(1)
+
             # Remove previous element from plot
             for e in to_remove:
                 e.remove()
@@ -217,7 +222,7 @@ def condensation_tracker(video_name, params):
 
 
 if __name__ == "__main__":
-    video_name = 'video1.avi'
+    video_name = 'video3.avi'
     params = {
         "draw_plots": 1,
         "hist_bin": 16,
