@@ -229,12 +229,12 @@ if __name__ == "__main__":
     video_name = 'video2.avi'
     params = {
         "draw_plots": 1,
-        "hist_bin": 16,
-        "alpha": 0,
-        "sigma_observe": 0.1,
-        "model": 1,
-        "num_particles": 30,
-        "sigma_position": 5,
+        "hist_bin": 32,
+        "alpha": 0.1,
+        "sigma_observe": 0.1, # Measurement noise
+        "model": 0,
+        "num_particles": 100,
+        "sigma_position": 10, # System noise
         "sigma_velocity": 1,
         "initial_velocity": (10, 0)
     }
