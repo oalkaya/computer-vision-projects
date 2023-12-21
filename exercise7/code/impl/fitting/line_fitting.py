@@ -5,29 +5,48 @@ import random
 np.random.seed(0)
 random.seed(0)
 
-def least_square(x,y):
-	# TODO
-	# return the least-squares solution
-	# you can use np.linalg.lstsq
-	return k, b
+def least_square(x, y):
+    A = np.vstack([x, np.ones(len(x))]).T
+    k, b = np.linalg.lstsq(A, y, rcond=None)[0]
+    return k, b
 
 def num_inlier(x,y,k,b,n_samples,thres_dist):
 	# TODO
 	# compute the number of inliers and a mask that denotes the indices of inliers
-	num = 0
-	mask = np.zeros(x.shape, dtype=bool)
-
-	return num, mask
+    y_estimated = k * x + b
+    distance = np.abs(y - y_estimated)
+    inlier_mask = distance < thres_dist
+    num = np.sum(inlier_mask)
+    return num, inlier_mask
 
 def ransac(x,y,iter,n_samples,thres_dist,num_subset):
 	# TODO
 	# ransac
-	k_ransac = None
-	b_ransac = None
-	inlier_mask = None
-	best_inliers = 0
+    best_inliers = 0
+    k_ransac = None
+    b_ransac = None
+    inlier_mask = None
+    
+    for _ in range(iter):
+        # Randomly choose a subset of points
+        indices = np.random.choice(n_samples, num_subset, replace=False)
+        x_subset = x[indices]
+        y_subset = y[indices]
+        
+        # Compute least squares on the subset
+        k_subset, b_subset = least_square(x_subset, y_subset)
+        
+        # Count the inliers for this model
+        num, mask = num_inlier(x, y, k_subset, b_subset, n_samples, thres_dist)
+        
+        # Update the best model if this one is better
+        if num > best_inliers:
+            best_inliers = num
+            k_ransac = k_subset
+            b_ransac = b_subset
+            inlier_mask = mask
 
-	return k_ransac, b_ransac, inlier_mask
+    return k_ransac, b_ransac, inlier_mask
 
 def main():
 	iter = 300
@@ -49,8 +68,7 @@ def main():
 
 	# least square
 	k_ls, b_ls = least_square(x_noisy, y_noisy)
-
-	# ransac
+     
 	k_ransac, b_ransac, inlier_mask = ransac(x_noisy, y_noisy, iter, n_samples, thres_dist, num_subset)
 	outlier_mask = np.logical_not(inlier_mask)
 
