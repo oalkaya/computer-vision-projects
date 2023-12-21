@@ -69,8 +69,17 @@ def main():
 	# least square
 	k_ls, b_ls = least_square(x_noisy, y_noisy)
      
+	print(f'k ground truth: {k_gt}')
+	print(f'b ground truth: {b_gt}')
+     
+	print(f'k least-squares: {k_ls}')
+	print(f'b least-squares: {b_ls}')
+     
 	k_ransac, b_ransac, inlier_mask = ransac(x_noisy, y_noisy, iter, n_samples, thres_dist, num_subset)
 	outlier_mask = np.logical_not(inlier_mask)
+     
+	print(f'k RANSAC: {k_ransac}')
+	print(f'b RANSAC: {b_ransac}')
 
 	print("Estimated coefficients (true, linear regression, RANSAC):")
 	print(k_gt, b_gt, k_ls, b_ls, k_ransac, b_ransac)

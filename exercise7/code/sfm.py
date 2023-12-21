@@ -14,7 +14,7 @@ def main():
 
   np.set_printoptions(linewidth=10000, edgeitems=100, precision=3)
 
-  data_folder = '../data'
+  data_folder = 'data'
   image_names = [
     '0000.png',
     '0001.png',
@@ -39,24 +39,24 @@ def main():
 
   K = ReadKMatrix(data_folder)
 
-  init_images = [3, 4]
+  init_images = [4, 5]
 
-  # ------------------------------------------------------------------------------------
-  # Visualize images and features
-  # You can comment these lines once you verified that the images are loaded correctly
+  # # ------------------------------------------------------------------------------------
+  # # Visualize images and features
+  # # You can comment these lines once you verified that the images are loaded correctly
 
-  # Show the images
-  PlotImages(images)
+  # # Show the images
+  # PlotImages(images)
 
-  # Show the keypoints
-  for image_name in image_names:
-    PlotWithKeypoints(images[image_name])
+  # # Show the keypoints
+  # for image_name in image_names:
+  #   PlotWithKeypoints(images[image_name])
 
-  # Show the feature matches
-  for image_pair in itertools.combinations(image_names, 2):
-    PlotImagePairMatches(images[image_pair[0]], images[image_pair[1]], matches[(image_pair[0], image_pair[1])])
-    gc.collect()
-  # ------------------------------------------------------------------------------------
+  # # Show the feature matches
+  # for image_pair in itertools.combinations(image_names, 2):
+  #   PlotImagePairMatches(images[image_pair[0]], images[image_pair[1]], matches[(image_pair[0], image_pair[1])])
+  #   gc.collect()
+  # # ------------------------------------------------------------------------------------
   
   e_im1_name = image_names[init_images[0]]
   e_im2_name = image_names[init_images[1]]
@@ -72,7 +72,6 @@ def main():
   # This gives four possible solutions and we need to check which one is the correct one in the next step
   possible_relative_poses = DecomposeEssentialMatrix(E)
 
-
   # ------------------Finding the correct decomposition--------------------------------------
   # For each possible relative pose, try to triangulate points with function TriangulatePoints.
   # We can assume that the correct solution is the one that gives the most points in front of both cameras.
@@ -82,14 +81,24 @@ def main():
   # you can set the image poses in the images (image.SetPose(...))
   # Note that this pose is assumed to be the transformation from global space to image space
   # TODO
-  
+  for i in range(len(possible_relative_poses)): # Might be a point of error, check directions per hint
+    e_im1.SetPose(np.eye(3), np.zeros(3))
+    e_im2.SetPose(*possible_relative_poses[i])
+    points3D, im1_corrs, im2_corrs = TriangulatePoints(K, e_im1, e_im2, e_matches)
+
+    num_points = len(points3D)
+    # print(num_points)
+    if(num_points > max_points):
+      max_points = num_points
+      best_pose = i
+    pass
 
   # TODO
   # Set the image poses in the images (image.SetPose(...))
   # Note that the pose is assumed to be the transformation from global space to image space
-  e_im1.SetPose(...)
-  e_im2.SetPose(...)
-
+  print(f'best_pose index: {best_pose}')
+  e_im1.SetPose(np.eye(3), np.zeros(3))
+  e_im2.SetPose(*possible_relative_poses[best_pose])
 
   # Triangulate initial points
   points3D, im1_corrs, im2_corrs = TriangulatePoints(K, e_im1, e_im2, e_matches)
@@ -143,6 +152,8 @@ def main():
   # Visualize
   fig = plt.figure()
   ax3d = fig.add_subplot(111, projection='3d')
+  # print(len(points3D))
+  # print(points3D)
   Plot3DPoints(points3D, ax3d)
   PlotCameras(images, registered_images, ax3d)
 
